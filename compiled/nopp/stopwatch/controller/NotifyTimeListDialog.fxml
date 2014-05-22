@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<fx:root type="javafx.scene.layout.AnchorPane" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="248.0" prefWidth="297.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <TitledPane animated="false" minWidth="184.0" prefHeight="172.0" prefWidth="218.0" text="通知時間一覧" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="40.0">
+      <content>
+        <ListView fx:id="notifyTimeList" prefHeight="146.0" prefWidth="205.9998779296875" />
+      </content>
+    </TitledPane>
+    <Button fx:id="notifyAddButton" mnemonicParsing="false" onAction="#onClickNotifyAddButton" text="追加" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="14.0" />
+    <Button fx:id="notifyDeleteButton" layoutY="14.0" mnemonicParsing="false" onAction="#onClickNotifyDeleteButton" text="削除" AnchorPane.rightAnchor="16.0" />
+    <Button fx:id="closeButton" maxWidth="-1.0" mnemonicParsing="false" onAction="#onClickCloseButton" prefWidth="-1.0" text="閉じる" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="16.0" />
+    <TextField id="timeTextField" fx:id="notifyTimeTextField" prefWidth="176.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="14.0" />
+  </children>
+</fx:root>

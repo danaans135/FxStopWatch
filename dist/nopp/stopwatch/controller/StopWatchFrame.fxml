@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import nopp.stopwatch.controller.*?>
+<?scenebuilder-classpath-element ../../../../bin?>
+
+<fx:root type="javafx.scene.layout.AnchorPane" id="AnchorPane" disable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onMouseClicked" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" prefHeight="149.5986328125" prefWidth="-1.0" style="//-fx-border-color: rgb(49, 89, 23);&#10;//-fx-background-color: rgba(255,255,255,0);" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="142.5986328125" prefWidth="-1.0" style="-fx-border-color: rgb(49, 89, 23);&#10;-fx-background-color: rgba(255,255,255,1);" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+      <children>
+        <StopWatchPane fx:id="stopWatchPane" prefHeight="104.5986328125" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="19.0" />
+        <Button fx:id="closeButton" mnemonicParsing="false" onAction="#onActionCloseButton" styleClass="windowButton" text="" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+          <tooltip>
+            <Tooltip text="終了" />
+          </tooltip>
+        </Button>
+        <Button fx:id="hideButton" minHeight="19.0" minWidth="20.0" mnemonicParsing="false" onAction="#onActionHideButton" prefHeight="19.0" prefWidth="20.0" style="-fx-background-image: url(&quot;close.png&quot;);" styleClass="windowButton" text="" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="1.0">
+          <graphic>
+            <ImageView fitHeight="16.0" fitWidth="16.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@hide.png" />
+              </image>
+            </ImageView>
+          </graphic>
+          <tooltip>
+            <Tooltip text="隠す" />
+          </tooltip>
+        </Button>
+        <Button id="hideButton" minHeight="19.0" minWidth="20.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="20.0" style="-fx-background-image: url(&quot;close.png&quot;);" styleClass="windowButton" text="" AnchorPane.rightAnchor="41.0" AnchorPane.topAnchor="1.0">
+          <graphic>
+            <ImageView fitHeight="16.0" fitWidth="16.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@help.png" />
+              </image>
+            </ImageView>
+          </graphic>
+          <tooltip>
+            <Tooltip text="ヘルプ" />
+          </tooltip>
+        </Button>
+      </children>
+      <effect>
+        <DropShadow color="#00000080" height="7.0" radius="3.0" width="7.0" />
+      </effect>
+    </AnchorPane>
+  </children>
+  <effect>
+    <DropShadow color="#00000069" />
+  </effect>
+  <stylesheets>
+    <URL value="@main.css" />
+  </stylesheets>
+</fx:root>

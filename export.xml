@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project StopWatch with libraries in sub-folder">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="C:/Users/tetsuya.maeda/workspace/StopWatch/export/StopWatch.jar">
+            <manifest>
+                <attribute name="Main-Class" value="nopp.stopwatch.Main"/>
+                <!--<attribute name="Class-Path" value=". StopWatch_lib/jfxrt.jar"/>-->
+            </manifest>
+            <fileset dir="C:/Users/tetsuya.maeda/workspace/StopWatch/bin"/>
+        </jar>
+        <!--<delete dir="C:/Users/tetsuya.maeda/workspace/StopWatch/export/StopWatch_lib"/>
+        <mkdir dir="C:/Users/tetsuya.maeda/workspace/StopWatch/export/StopWatch_lib"/>
+        <copy file="C:/Program Files/Java/jdk1.7.0_21/jre/lib/jfxrt.jar" todir="C:/Users/tetsuya.maeda/workspace/StopWatch/export/StopWatch_lib"/>
+        -->
+    </target>
+</project>

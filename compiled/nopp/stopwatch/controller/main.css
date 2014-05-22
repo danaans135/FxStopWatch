@@ -1,0 +1,14 @@
+.windowButton {
+    -fx-background-color: transparent;
+    -fx-background-image: url("close.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.windowButton:hover {
+    -fx-background-color: #aaaaff;
+}
+
+.stopWatchTextField {
+    -fx-font-size: 22px;
+}

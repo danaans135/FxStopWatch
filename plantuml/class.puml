@@ -1,0 +1,194 @@
+
+@startuml
+hide members
+package UI <<rect>> {
+class NotifyTimeListDialog
+class NotifyTimeListDialogBase
+class StopWatchPane
+class StopWatchPaneBase
+class CustomTrayIcon
+class TrayIcon
+class StopWatchStage
+class Stage
+class StopWatchFrame
+class StopWatchFrameBase
+class StopWatchFrameBase
+class AnchorPane
+class StopWatchPaneBase
+}
+class NotifyTimeListDialog {
+	-Logger log
+	-ObservableList<String> items
+	+NotifyTimeListDialog()
+	#void onClickCloseButton(ActionEvent event)
+	#void onClickNotifyAddButton(ActionEvent event)
+	#void onClickNotifyDeleteButton(ActionEvent event)
+	#void initialize()
+}
+class NotifyTimeListDialogBase {
+}
+NotifyTimeListDialogBase <|-- NotifyTimeListDialog
+class StopWatchPane {
+	-Image sStartImage
+	-Image sStopImage
+	+StopWatchPane()
+	-void showElapsedTime()
+	#void onClickNotifyButton(ActionEvent event)
+	#void onClickResetButton(ActionEvent event)
+	#void onClickStartButton(ActionEvent event)
+	#void initialize()
+	+void onTimer(long elapsedTime)
+	+void onNotifyTime(String notifyTime)
+}
+class StopWatchPaneBase {
+}
+StopWatchPaneBase <|-- StopWatchPane
+interface StopWatchListener {
+}
+StopWatchListener <|.. StopWatchPane
+
+class CustomTrayIcon {
+	-JPopupMenu mJpopup
+	-MouseAdapter mAdapter
+	-Action mAction
+	+CustomTrayIcon(Image image, String tooltip, PopupMenu popup)
+	+CustomTrayIcon(Image image, String tooltip)
+	+CustomTrayIcon(Image image)
+	+void setJPopupMenu(JPopupMenu jpopup)
+	-void initJPopupMenu()
+	+void setAction(Action action)
+}
+class TrayIcon {
+}
+TrayIcon <|-- CustomTrayIcon
+
+class ImageUtil {
+	+int IMG_OVAL_RED
+	+int IMG_OVAL_GREEN
+	+int IMG_OVAL_ORANGE
+	-Image[] images
+	+void loadImage()
+	+Image getImage(int i)
+	-Image createOval(Color color)
+}
+class StopWatch {
+	-int DEFAULT_PERIOD
+	-Timer mCurTimer
+	-long mStartTime
+	-long mElapsedTime
+	-int mPeriod
+	-StopWatchListener mListener
+	+StopWatch()
+	+StopWatch(int period)
+	+void start()
+	+void stop()
+	+boolean isRunning()
+	+void reset()
+	+String getElapsedTimeStr()
+	+void addStopWatchListener(StopWatchListener l)
+}
+class StopWatchStage {
+	+StopWatchStage(Stage primaryStage)
+	-Scene createStopWatchScene()
+}
+class Stage {
+}
+Stage <|-- StopWatchStage
+class StopWatchFrame {
+	-Logger log
+	-double mPressX
+	-double mPressY
+	+StopWatchFrame()
+	#void onActionHideButton(ActionEvent event)
+	#void onActionCloseButton(ActionEvent event)
+	#void onMouseDragged(MouseEvent event)
+	#void onMousePressed(MouseEvent event)
+	#void onMouseReleased(MouseEvent event)
+	#void initialize()
+	#void onActionHelpButton(ActionEvent event)
+}
+class StopWatchFrameBase {
+}
+StopWatchFrameBase <|-- StopWatchFrame
+StopWatchStage --> StopWatchFrame
+StopWatchFrame ..> StopWatchPane
+
+class StopWatchFrameBase {
+	#ResourceBundle resources
+	#URL location
+	#Button closeButton
+	#Button helpButton
+	#Button hideButton
+	#StopWatchPane stopWatchPane
+	#void onActionCloseButton(ActionEvent event)
+	#void onActionHelpButton(ActionEvent event)
+	#void onActionHideButton(ActionEvent event)
+	#void onMouseClicked(MouseEvent event)
+	#void onMouseDragged(MouseEvent event)
+	#void onMousePressed(MouseEvent event)
+	#void onMouseReleased(MouseEvent event)
+	#void initialize()
+}
+class AnchorPane {
+}
+AnchorPane <|-- StopWatchFrameBase
+class StopWatchPaneBase {
+	#ResourceBundle resources
+	#URL location
+	#AnchorPane StopWatchPane
+	#Button notifyButton
+	#Button resetButton
+	#Button startButton
+	#TextField timeTextField
+	#void onClickNotifyButton(ActionEvent event)
+	#void onClickResetButton(ActionEvent event)
+	#void onClickStartButton(ActionEvent event)
+	#void initialize()
+}
+class AnchorPane {
+}
+AnchorPane <|-- StopWatchPaneBase
+class NotifyTimeListDialogBase {
+	#ResourceBundle resources
+	#URL location
+	#Button closeButton
+	#Button notifyAddButton
+	#Button notifyDeleteButton
+	#ListView<String> notifyTimeList
+	#TextField notifyTimeTextField
+	#void onClickCloseButton(ActionEvent event)
+	#void onClickNotifyAddButton(ActionEvent event)
+	#void onClickNotifyDeleteButton(ActionEvent event)
+	#void initialize()
+}
+class AnchorPane {
+}
+AnchorPane <|-- NotifyTimeListDialogBase
+
+class SystemTrayManager {
+	-SystemTrayManager sInstance
+	-TrayIcon mStopWatchAppTrayIcon
+	+SystemTrayManager getInstance()
+	+void init()
+	-TrayIcon createTrayIcon()
+	+void displayMessage(String caption, String text, MessageType messageType)
+}
+StopWatchApp --> SystemTrayManager
+StopWatchPane -> SystemTrayManager
+SystemTrayManager -> CustomTrayIcon
+class StopWatchAppModel {
+	-StopWatchAppModel mInstance
+	-List<String> mNotifyTimeList
+	-StopWatch mStopWatch
+	+StopWatchAppModel getInstance()
+	+StopWatchAppModel()
+	+List<String> getNotifyTimeList()
+	+void setNotifyTimeList(List<String> notifyTimeList)
+	+StopWatch getStopWatch()
+	+void setStopWatch(StopWatch stopWatch)
+}
+StopWatch - StopWatchAppModel
+StopWatchPane -> StopWatchAppModel
+NotifyTimeListDialog -> StopWatchAppModel
+SystemTrayManager -> ImageUtil
+@enduml

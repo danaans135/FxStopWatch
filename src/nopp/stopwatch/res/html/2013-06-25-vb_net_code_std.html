@@ -1,0 +1,333 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#方針"><span class="toc-section-number">1</span> 方針</a></li>
+<li><a href="#ファイル構成"><span class="toc-section-number">2</span> ファイル構成</a></li>
+<li><a href="#命名規則"><span class="toc-section-number">3</span> 命名規則</a></li>
+<li><a href="#ガイドライン"><span class="toc-section-number">4</span> ガイドライン</a></li>
+</ul>
+</div>
+<style type="text/css">
+<!--
+  pre {
+    margin: 0px 20px; 
+    padding: 8px;
+    background-color:#f0f0ff;
+    border: #ccccff solid 1px;
+  }
+  table, td, th {
+    border: #999999 solid 1px;
+    border-collapse: collapse;
+  }
+  td, th {
+    padding: 2px;
+  }
+  th {
+    background-color:#fff0f0;
+  }
+-->
+</style>
+
+<h1 id="方針"><a href="#方針"><span class="header-section-number">1</span> 方針</a></h1>
+<p>このコーディング標準は、ソフトウェア開発プロジェクトにおいてVB.NETでコーディングする際のルール、推奨、および迷った時の指針を提供するものである。</p>
+<p>標準策定の方針は、読みやすくメンテナンスしやすいコードを書くことである。実際のコーディングにあたっては、プロジェクトメンバー全員がこのルールに合意していることが必要である。</p>
+<p>実プロジェクトにおいては、このコーディング標準をカスタマイズして用いることを推奨する。</p>
+<p>また、あわせて .NET Framework SDK ヘルプ「クラス ライブラリ開発者向けのデザイン ガイドライン」を参照することを推薦する。</p>
+<p>※ 特にExtreme Programming プロジェクトでの利用を意識したものではなく、あらゆるVB.NETを使ったプロジェクトでの利用を想定している。</p>
+<h1 id="ファイル構成"><a href="#ファイル構成"><span class="header-section-number">2</span> ファイル構成</a></h1>
+<ol style="list-style-type: decimal">
+<li><p>ファイル名</p>
+<p>Publicクラスはそのクラス名の1ファイルにする。</p>
+<blockquote>
+<pre class="example"><code>例：Public Class Customerは、Customer.vbに入れる。</code></pre>
+</blockquote>
+<p>パッケージ内の非パブリッククラスは、そのクラスが主に使われるパブリッククラスのファイルに含めて良い。<br />例外クラスは、1ファイルに複数クラスをまとめてもよい。</p></li>
+<li><p>ファイルの位置</p>
+<p>プロジェクトのルートディレクトリを決め、名前空間の “.” をディレクトリ階層に置き換えた位置に入れる。</p>
+<blockquote>
+<pre><code>例：
+名前空間：CompanyName.TechnologyName.FeatureName
+
+ソリューションの配置先：C:\CompanyName\TechnologyName
+プロジェクトの配置先：C:\CompanyName\TechnologyName\FeatureName</code></pre>
+</blockquote></li>
+<li><p>テストクラス名</p>
+<p>クラスClassNameのユニットテストクラス名は、ClassNameTestとする。ソリューション毎テストはSolutionNameTestsとする。</p>
+<blockquote>
+<pre><code>例：CustomerクラスならCustomerTest.vbを作成
+例：VbSampleソリューションなら、VbSampleTests.vbprojとする</code></pre>
+</blockquote>
+<p>理由：一貫性のある名前づけ。テストコードは使い方のサンプル、デモともなる。</p></li>
+<li><p>テストクラスの位置</p>
+<p>テストクラスは、被テストクラスと同じ階層のディレクトリ &quot;Tests&quot; に配置する。</p>
+<blockquote>
+<pre><code>例：
+被テストクラスの位置：C:\CompanyName\TechnologyName\FeatureName
+テストクラスの配置：C:\CompanyName\TechnologyName\Tests</code></pre>
+</blockquote>
+<p>理由：物理的に近い位置でないとメンテが忘れ去られる。製品コードとの分離については、別のツール(NAntのbuildファイルなど)で調整可能。</p></li>
+</ol>
+<h1 id="命名規則"><a href="#命名規則"><span class="header-section-number">3</span> 命名規則</a></h1>
+<ol start="5" style="list-style-type: decimal">
+<li><p>名前空間</p>
+<p>企業正式名(.組織名).テクノロジー名.機能名を使用する。</p>
+<blockquote>
+<pre><code>Imports CompanyName(.OrganizationName).TechnologyName.FeatureName</code></pre>
+</blockquote>
+<p>理由:名前空間のトップレベルに企業正式名を指定することにより、競合の発生の可能性をさらに下げることができる。</p></li>
+<li><p>ファイル名</p>
+<p>パブリックなクラス名は、ファイル名と同じでなくてはならない。（大文字小文字の区別を含めて）</p></li>
+<li><p>クラス名</p>
+<p>先頭大文字。あとは区切りを大文字。</p>
+<blockquote>
+<pre><code>Class PascalCasing</code></pre>
+</blockquote></li>
+<li><p>例外クラス名</p>
+<p>最後をExceptionとしたクラス名。</p>
+<blockquote>
+<pre><code>Class ClassNameEndsWithException</code></pre>
+</blockquote></li>
+<li><p>属性クラス名</p>
+<p>カスタムの属性クラスには、最後に必ず Attribute を付ける。</p>
+<blockquote>
+<pre><code>Class ClassNameEndsWithAttribute</code></pre>
+</blockquote></li>
+<li><p>インターフェイス名</p>
+<p>クラス名に同じ。また常に最初にIを付ける。</p>
+<blockquote>
+<pre><code>Interface INameOfInterface</code></pre>
+</blockquote>
+<p>また、クラスにある能力を加える様な利用の場合、その能力を示す形容詞とし、-ableを接尾にする。</p>
+<blockquote>
+<pre><code>例: IEnumerable, ICloneable, IXmlSerializable, …</code></pre>
+</blockquote></li>
+<li><p>実装クラス名</p>
+<p>特にInterfaceと区別の必要があれば、最後にImplを付ける。</p>
+<blockquote>
+<pre><code>Class ClassNameEndsWithImpl</code></pre>
+</blockquote></li>
+<li><p>抽象クラス名</p>
+<p>抽象クラス名に適当な名前が無いとき、 Abstract から始まりサブクラス名を連想させる名前を付ける。</p>
+<blockquote>
+<pre><code>MustInherit Class AbstractBeforeSubClassName</code></pre>
+</blockquote></li>
+<li><p>定数(Const and ReadOnly)</p>
+<p>先頭大文字。あとは区切りを大文字。</p>
+<blockquote>
+<pre><code>Const PascalCascading As Integer = 0
+ReadOnly PascalCascading As Integer = 0
+Shared ReadOnly PascalCascading As Integer = 0</code></pre>
+</blockquote>
+<p>定数と読み取り専用変数は異なる意味を持つ事に注意すること。(定数はコンパイル時に取得されるが、読取専用変数の値は実行時まで取得されない。)</p></li>
+<li><p>列挙型(Enum)</p>
+<p>先頭大文字。あとは区切りを大文字。</p>
+<blockquote>
+<pre><code>Enum PascalCasing</code></pre>
+</blockquote>
+<p>列挙型がビットフィールドを表すときは複数形にし、FlagsAttributeを付加する。</p>
+<blockquote>
+<pre><code>&lt;Flags()&gt; Enum PascalCasings</code></pre>
+</blockquote></li>
+<li><p>列挙値</p>
+<p>先頭大文字。あとは区切りを大文字。</p>
+<blockquote>
+<pre><code>PascalCasing</code></pre>
+</blockquote></li>
+<li><p>イベント名</p>
+<p>先頭大文字。あとは区切りを大文字。</p>
+<blockquote>
+<pre><code>Event PascalCasing()</code></pre>
+</blockquote>
+<p>イベントの名前には動詞を使用すること。</p>
+<p>イベントハンドラ名には、EventHandler サフィックスを付けること。</p>
+<p>sender および e という名前の2つのパラメータを指定すること。</p>
+<p>イベント引数クラスの名前には、EventArgs サフィックスを付けること。</p>
+<p>イベント発生前の概念を表すイベント名には動名詞を使用し、イベント発生後の概念を表すイベント名には動詞の過去形を使用すること。</p>
+<blockquote>
+<pre><code>例:
+Event EventName As EventNameEventHandler
+Delegate Sub EventNameEventHandler(Byval sender As Object, _
+                                   Byval e As EventNameEventArgs)
+
+Event Closing As CancelEventHandler
+Event Closed As EventHandler</code></pre>
+</blockquote></li>
+<li><p>メソッド名</p>
+<p>先頭大文字。あとは区切りを大文字。</p>
+<blockquote>
+<pre><code>Sub PascalCasing() Function PascalCasing() As Object</code></pre>
+</blockquote></li>
+<li><p>ファクトリメソッド(オブジェクトをnewするもの)</p>
+<blockquote>
+<pre><code>Function NewX() As X Function CreateX() As X</code></pre>
+</blockquote></li>
+<li><p>コンバータメソッド(オブジェクトを別のオブジェクトに変換するもの)</p>
+<blockquote>
+<pre><code>Function ToX() As X</code></pre>
+</blockquote></li>
+<li><p>プロパティ名</p>
+<p>先頭大文字。あとは区切りを大文字。</p>
+<blockquote>
+<pre><code>Property PascalCasing() As Object</code></pre>
+</blockquote></li>
+<li><p>Boolean変数を返すメソッド</p>
+<p>Is + 形容詞、Can + 動詞、Has + 過去分詞、三単元動詞、三単元動詞 + 名詞。</p>
+<blockquote>
+<pre><code>良い例：
+Function IsEmpty() As Boolean
+Function CanGet() As Boolean
+Function HasChanged() As Boolean
+Function Contains(ByVal x As Object) As Boolean
+Function ContainsKey(ByVal key As String) As Boolean
+
+悪い例：
+Function Empty() As Boolean ‘「空にする」という動詞的な意味に取れる。
+Function CheckXXX()As Boolean ‘Trueがどちらの意味か分かりづらい。</code></pre>
+</blockquote>
+<p>理由： If, While文等の条件が読みやすくなる。またTrueがどちらの意味か分かりやすい。</p></li>
+<li><p>Boolean変数</p>
+<p>形容詞、is + 形容詞、can + 動詞、has + 過去分詞、三単元動詞、三単元動詞 + 名詞。</p>
+<blockquote>
+<pre><code>Dim isEmpty As Boolean
+Dim dirty As Boolean
+Dim containsMoreElements As Boolean</code></pre>
+</blockquote></li>
+<li><p>英語と日本語</p>
+<p>すべての識別子の名前は英語を基本とし、別に、日英対応用語辞書を作成してプロジェクトの全ライフサイクルでメンテナンスすること。</p></li>
+<li><p>名前の対称性</p>
+<p>クラス名、メソッド名を付ける際は、以下の英語の対称性に気を付ける。</p>
+<blockquote>
+<pre><code>Add / Remove
+Insert / Delete
+Get / Set
+Start / Stop
+Begin / End
+Send / Receive
+First / Last
+Get / Release
+Put / Get
+Up / Down
+Show / Hide
+Source / Target
+Open / Close
+Source / Destination
+Increment / Decrement
+Lock / Unlock
+Old / New
+Next / Previous</code></pre>
+</blockquote></li>
+<li><p>ループカウンタ</p>
+<p>スコープ（通用範囲）が狭いループカウンタに i, j, k という名前をこの順に使う。</p></li>
+<li><p>スコープが狭い名前</p>
+<p>スコープが狭い変数名は，型名を略したものを使って良い。</p>
+<blockquote>
+<pre><code>例： Dim ds As DataSet = New DataSet()</code></pre>
+</blockquote></li>
+<li><p>意味がとれる名前</p>
+<p>変数名から役割が読み取れる名前を好め。</p>
+<blockquote>
+<pre><code>悪い例：Sub Copy(ByVal s1 As String, ByVal s2 As String)
+良い例：Sub Copy(ByVal source As String, ByVal destination As String)</code></pre>
+</blockquote></li>
+<li><p>無意味な名前</p>
+<p>Info, Data, Temp, Str, Bufという名前は再考を要する。</p>
+<blockquote>
+<pre><code>悪い例：Dim temp As Double = Math.sqrt(b*b - 4*a*c)
+良い例：Dim determinant As Double = Math.sqrt(b*b - 4*a*c)</code></pre>
+</blockquote></li>
+<li><p>Private / Protected / Friend / Protected Friendスコープのインスタンス変数</p>
+<p>最初小文字で、あとは区切りを大文字。プリフィクス / サフィクスを適用する場合は、変数の読みやすさを考慮すること。ハンガリアン表記法は使用しない。</p>
+<blockquote>
+<pre><code>Private camelCasing As Object
+Protected camelCasing As Object
+Friend camelCasing As Object
+Protected Friend camelCasing As Object</code></pre>
+</blockquote></li>
+<li><p>Publicスコープのインスタンス変数</p>
+<p>先頭大文字。あとは区切りを大文字。極力使用しないようにすること。 Public PascalCasing As Object</p></li>
+<li><p>Private / Protected / Friend / Protected Friendスコープの共有変数</p>
+<p>最初小文字で、あとは区切りを大文字。プリフィクス / サフィクスを適用する場合は、変数の読みやすさを考慮すること。 Private Shared camelCasing As Object Protected Shared camelCasing As Object Friend Shared camelCasing As Object Protected Friend Shared camelCasing As Object</p></li>
+<li><p>Publicスコープの共有変数</p>
+<p>先頭大文字。あとは区切りを大文字。極力使用しないようにすること。 Public Shared PascalCasing As Object</p></li>
+<li><p>ローカル変数</p>
+<p>最初小文字で、あとは区切りを大文字。ハンガリアン表記法は使用しない。 Dim camelCasing As Object</p></li>
+<li><p>大文字小文字</p>
+<p>大文字と小文字は同一として扱われるので注意が必要である。 例：インスタンス変数とプロパティが重なる場合。 ReadOnly Property Name() As Integer ' 不可 Get Return name End Get End Property</p></li>
+</ol>
+<h1 id="ガイドライン"><a href="#ガイドライン"><span class="header-section-number">4</span> ガイドライン</a></h1>
+<ol start="35" style="list-style-type: decimal">
+<li>Option Strict 原則としてコンパイラの規定値としてOption Strict On に設定し、型変換を明示的に行う。Option Strict Offにする必要性のある場合はファイルレベルで宣言する。</li>
+<li>Option Explicit 原則としてコンパイラの規定値としてOption Explicit On に設定し、ファイル内のすべての変数を明示的に宣言する。</li>
+<li>#Region / #End Regionディレクティブ コード領域は＃Region / #End Region ディレクティブで宣言し、その領域についての説明を含める。 例： #Region &quot;インスタンス変数&quot; Private name As String #End Region #Region &quot;コンストラクタ&quot; Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 12 Public Sub New(ByVal name As String) Me.name = name End Sub #End Region</li>
+<li>メソッド/プロパティの宣言 メソッド/プロパティの宣言ではスコープを明示的に指定する。</li>
+<li>長い行 一行は最大100桁とし、それを超える場合は行を分割する。分割の指針は、(1) ローカル変数を利用、(2)算術演算子/連結演算子で改行、(3)カンマで改行、(4)優先度の低い演算子の前で改行 とする。 例： Dim length As Double = Math.Sqrt(Math.Pow(New Random().NextDouble, 2.0) + Math.Pow(New Random().NextDouble, 2.0)) ' 方針(1) Dim xSquared As Double = Math.Pow(New Random().NextDouble, 2.0) Dim ySquared As Double = Math.Pow(New Random().NextDouble, 2.0) Dim length As Double = Math.Sqrt(xSquared + ySquared) ' 方針(2) Dim length As Double = Math.Sqrt(Math.Pow(New Random().NextDouble, 2.0) + _ Math.Pow(New Random().NextDouble, 2.0)) ' 方針(3) LongMethodSignature(value(0), value(1), value(2), _ value(3), value(4), value(5)) Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 13 ' 方針(4) Return Me Is obj _ Or (TypeOf obj Is Class1 _ And Me.Field = obj.Field)</li>
+<li>長いクラス宣言行 クラスの宣言が長い場合はInherits / Implements 節で改行とする。 例: Public Class LongNameClassImplemenation : Inherits AbstractImplementation : Implements IXmlSerializable, Icloneable ならば、 Public Class LongNameClassImplemenation Inherits AbstractImplementation Implements IXmlSerializable, Icloneable 属性によりクラスの宣言が長くなる場合は、カンマ、属性で改行する。 例： <Serializable(), _ System.Diagnostics.DebuggerStepThrough()> _ Public Class LongNameClassAttribute</li>
+<li>長いメソッド宣言行 メソッドの宣言が長い場合はカンマで改行とする。 例： Sub LongMethodSignature(ByVal a As Integer, ByVal b As Integer, _ ByVal c As Integer, ByVal d As Integer, _ ByVal e As Integer, ByVal f As Integer) Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 14 属性によりメソッドの宣言が長くなる場合は、カンマ、属性で改行する。 例： <MethodImpl(MethodImplOptions.Synchronized), _ System.Diagnostics.DebuggerStepThrough()> _ Sub LongNameMethodAttribute(ByVal a As Integer, ByVal b As Integer)</li>
+<li>MustInherit Class vs. Interface 抽象クラス(MustInherit Class)はなるべく使わず、Interfaceを多用せよ。MustInherit Classは、一部実装があり、一部抽象メソッドであるような場合にのみ使う。 理由：Interfaceは幾つでも継承できるが、Classは1つだけ。1つから継承してしまうと、もう継承できずもったいない。</li>
+<li>Public Variable インスタンス変数は、極力Publicにせず、妥当なプロパティを設ける。 理由：オブジェクト指向の標準。クラスの内部状態に勝手にアクセスさせるのはよくない。ただし、以下の条件をすべて満たす場合、インスタンス変数をPublicにし、直接アクセスさせてもよい。 ?? そのインスタンス変数が他のインスタンス変数と独立であり、単独で変更されても内部の整合性をくずさない。 ?? どちらにしても，Get / Setプロパティを書く。 ?? インスタンス変数の実装が将来に渡って変更されないことが根拠付けられる。 また、上記に当てはまらない場合でも、極度に速度を気にする場合は、この限りではない。(ただし、慎重にコメントすること) Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 15</li>
+<li>初期化 初期化をあてにしない(参照がNothingに初期化されているとか)。また、２度初期化しない。 悪い例： Public Class PoorInitialization Private name As String = &quot;initial_name&quot; Public Sub New() name = &quot;initial_name&quot; End Sub End Class 理由：初期化に関するバグを最小化する。</li>
+<li>Shared変数を避ける Shared変数(クラス変数)は極力避ける。 理由：Shared変数は、セミグローバルと言って良い。より文脈依存なコードを招き、副作用を覆いかくしてしまう。</li>
+<li>Private vs. Protected Privateよりは、Protectedを使用する。 理由：Privateは確実にそのクラス外からの使用をシャットアウトできるが、クライアントが、より細かいチューニングをSubClass化によって行うことを出来なくしてしまう。 別法: Private をより好んで使え。Protected にしてしまうと以降、変更が起ったときにそれを継承している全クラスに影響が出てしまう。 Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 16</li>
+<li>Get / Set プロパティ 無闇にインスタンス変数へのプロパティ(Get / Set プロパティ)を作成してPublicにすることは避ける。その必要性を検討し、もっと意味のあるプロパティ / メソッドにする。 理由：インスタンス変数は、他のインスタンス変数に依存していることが多い。クラス内部の整合性を崩してはならない。</li>
+<li>変数隠し 基本クラスの変数名と、同じ変数名を使う事は避けよ。 理由：一般的にはこれはバグである。もし意図があるならコメントせよ。</li>
+<li>配列宣言 配列の宣言は、arrayName() As Typeとせよ。 例： Public Shared Sub Main(ByVal args() As String) --- ○ Public Shared Sub Main(ByVal args As String()) --- ×</li>
+<li>Publicメソッド クラスのPublicメソッドは、「自動販売機のインターフェイス」を目標に。分かりやすく、使いかたを間違っても内部の整合性はこわれないように設計する。また、可能ならば契約による設計(Design by Contract)を行い、クラスの不変条件と共にメソッドの事前･事後条件をコードで表現せよ。</li>
+<li>状態取得と状態変更の分離 メソッドは，「1つの事」を行うように設計せよ。特に、状態変更と状態取得の２つのサー Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 17 ビスを１つのメソッドで行わない。状態を変更するメソッドはSubにせよ． 理由1：１つの事を行うメソッドの方が分かりやすい。 理由2：並行性の制御、例外の安全保証がしやすい。 理由3：サブクラス化による拡張がしやすい。</li>
+<li>MeのReturn クライアントの便宜を考えたつもりでも、MeをReturnすることはなるべく避ける。 理由：A.Meth1().Meth2().Meth3() というような連鎖は、一般的にSynchronization上の問題の元になる。</li>
+<li>メソッドの多重定義 引数のタイプによるメソッドのオーバーロードはなるべく避ける(引数の数が違うものはOKである)。特に、継承と絡むと厄介である。 例： ×：Overloads Sub Draw(ByVal rectangle As Rectangle) Overloads Sub Draw(ByVal point As Point) ○：Sub DrawRectangle(ByVal rectangle As Rectangle) Sub DrawPoint(ByVal point As Point)</li>
+<li>Equals()とGetHashCode() Object.Equals()メソッドをオーバーライドするなら、同時にGetHashCode()メソッドもオーバーライドせよ。逆も同じ。 理由：コンテナクラス(Hashtable)などに対応するため。 Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 18</li>
+<li>Clone() もし、Clone() メソッドが使われるようなら、 ICloneable を実装し明示的にそれを書く。 例： Imports System Public Class Foo Implements ICloneable Public Function Clone() As Object Implements ICloneable.Clone Dim myFoo As Foo = CType(Me.MemberwiseClone, Foo) ' Foo クラスの属性のクローン '... End Function End Class 理由：簡易コピーではよくないケースがほとんどである。</li>
+<li>デフォルトコンストラクタ 可能ならいつでもデフォルトのコンストラクタ(引数がないもの)を用意せよ。 理由：リフレクションを使用して、Assembly.CreateInstance(TypeName)で型名文字列からダイナミックにそのクラスを作成可能。</li>
+<li>MustOverride Method in MustInherit Classes MustInheritクラスでは、no-opのメソッドを書くより、明示的にMustOverrideメソッドと宣言せよ。また、共有可能なデフォルトの実装を用意できるなら、それをProtected とし、サブクラスが1行で処理を書けるようにせよ。 Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 19 理由：.NetのIDEは、実装されていないMustOverrideメソッドを検出できるため、単に実装を忘れていただけ、というバグを回避できる。</li>
+<li>オブジェクトの同値比較 オブジェクトの比較では Equals() メソッドを使い、= を使うな。特に、Stringの比較では = を使用してはならない。 理由：もし実装者がEquals()を用意しているなら、それを使ってほしくて実装したはず。また、Stringの比較ではOption Compare Textに設定されていると大文字/小文字が区別されない。 理由：ユニットテストでは、AssertEquals が Equals() を利用しているため、簡単に同値テストが書ける。</li>
+<li>宣言と初期化 ローカル変数は、初期値と共に宣言せよ。 理由：変数の値に関する仮定を最小化する。 悪い例： Sub F(ByVal start As Integer) Dim i, j As Integer ' 初期値なしの宣言 ' 多くのコード ' ... i = start + 1 j = i + 1 ' i, jを使う ' ... End Sub 良い例： Sub F(ByVal start As Integer) Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 20 ' 多くのコード ' ... Dim i As Integer = start + 1 Dim j As Integer = i + 1 ' i, jを使う ' ... End Sub</li>
+<li>ローカル変数の再利用は悪 ローカル変数を使い回しするより、新しいものを宣言して初期化せよ。 理由：変数の値に関する仮定を最小化する。 理由：コンパイラの最適化を助ける。 悪い例： Sub F(ByVal n As Integer, ByVal delta As Integer) Dim i As Integer ' 初期値なしの宣言 For i = 0 To n - 1 ' iを使う Next For i = 0 To n - 1 ' またiを使う If (...) Then Exit For End If Next If (i &lt;&gt; n - 1) Then ' 最後まで回ったかの判定にiを使っている ' ... End If i = n - delta * 2 ' またまた再利用 '... End Sub Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 21 良い例： Sub F(ByVal n As Integer, ByVal delta As Integer) Dim i As Integer For i = 0 To n - 1 ' iを使う Next Dim found As Boolean = False Dim j As Integer For j = 0 To n - 1 ' jを使う If (...) Then found = True Exit For End If Next If (found) Then ' ... End If Dim total As Integer = n - delta * 2 ' 別の意味ある変数 '... End Sub</li>
+<li>大小比較演算子 “&lt;”、 “&lt;=” を好んで使い、”&gt;”、 “&gt;=” はなるべく避けよ。 理由：大小の方向を統一し、右側を大きい方にすることで、混乱を避ける。 Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 22</li>
+<li>キャスト キャストは、できる限りTypeOfの条件文で囲め。 例： Dim cx As C = Nothing If (TypeOf x Is C) Then cx = CType(x, C) Else EvasiveAction() End If 理由：これで、「オブジェクトがそのインスタンスじゃなかったら?」とういことを常に考える癖がつく。ただし、キャスト出来ない場合がバグである、と判断できる場合は、この限りではない。</li>
+<li>例外クラス 例外クラスは大域的な性格をもち、多用するとプログラムの流れを読みにくくしてしまうことを認識する。 例外クラスは、新たに作成するよりも、.NETクラスライブラリに含まれているものを利用できれば利用する。 例: IOException, FileNotFoundException, ArgumentException などは利用しやすい標準例外。 新たな例外の作成は、そのパッケージ全体のインターフェイスとして検討すること。</li>
+<li>メソッド引数の変更は悪 原則としてメソッドの引数は入力であり、出力としては使わないこと。すなわちメソッド内部で引数の状態を変更するメソッドを呼ばないこと。出力引数に新たなオブジェクトを Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 23 代入しないこと。 悪い例: Sub MoveX(ByVal p As Point, ByVal dx As Integer) p.X = p.X() + dx ' 引数を変更している(なるべく避ける) End Sub Sub MoveX(ByVal p As Point, ByVal dx As Integer) Dim p As New Point(p.X + dx, p.Y) ' これは呼び出し側に伝わらない End Sub 例外：パフォーマンスを気にする場合。</li>
+<li>メソッド引数の名前 メソッドの引数は、読みやすいものにすること。特に、インスタンス変数と重なった場合、Meを活用し、引数の読みやすさを犠牲にしないこと。 悪い例： Sub Reset(ByVal x_ As Integer, ByVal y_ As Integer) x = x_ y = y_ End Sub 良い例： ' 引数名を x_, y_ などとしない Sub Reset(ByVal x As Integer, ByVal y As Integer) Me.x = x Me.y = y End Sub Sub Reset(ByVal x As Integer, ByVal y As Integer) <em>x = x</em>y = y Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 24 End Sub</li>
+<li>ToString() ToString() メソッドは可能ならいつでも実装すること。 理由1：Console.WriteLine(Object) でいつでもプリントできる。 理由2：ユニットテスト等で失敗した場合の表示が分かりやすくなる。</li>
+<li>Select Case, If / Elseの繰り返しは悪 Select Case文で分岐する処理が現れた時には、よくない設計の兆候だと考え、ポリモーフィズムで実現できないか再考する。特に同じようなSelect Caseが2箇所以上現れたら、必ずポリモーフィズム、FactoryMethod，Prototypeパターン等でリファクタリングすること。If / Elseの連続も同様。さらに、nullチェックを行う同様のIfが多くの場所に現れたら、NullObjectパターンの利用を検討せよ。</li>
+<li>型の変換 一般的な型変換は、CType，DirectCast を利用する。またオブジェクト変数のランタイム型が指定された型と同じである場合はCTypeより実行時の性能のよいDirectCastを使用すること。データ型変換はデータ型変換関数を使用すること。 例： Dim o As Object = 2.37 Dim i As Integer = CType(o, Integer) Dim d As Double = DirectCast(o, Double) ' o のランタイム型はDouble Dim j As Integer = CInt(d) Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 25</li>
+</ol>
+<ol start="5" style="list-style-type: decimal">
+<li>コメント</li>
+</ol>
+<ol start="69" style="list-style-type: decimal">
+<li>長いコメント コメントが複数行に渡る場合は、最初の短い一文で何が言いたいかを書き、その後に長いコメントを付けること。またそのような長いコメントの必要性を感じたときには常に設計をもっとシンプルにできないかを再考し、積極的にリファクタリングすること。</li>
+<li>Design by Contract (契約による設計) 契約による設計を行うため、DebugオブジェクトのAssertメソッドを使用せよ。Assertメソッドを使って、契約を表現せよ。 例： Imports System.Collections Public Class MyStack Inherits Stack Private capacity As Integer Private itemCount As Integer Public Overrides Sub Push(ByVal obj As Object) Debug.Assert(Not obj Is Nothing) ' 事前条件 ' ... ' ... Debug.Assert(Me.Contains(obj)) ' 事後条件 End Sub Public Function Invariant() As Boolean '不変条件 Debug.Assert(0 &lt;= capacity) Debug.Assert(0 &lt;= itemCount) Debug.Assert(itemCount &lt;= capacity) Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 26 Return True End Function End Class 注意：ユーザ入力チェックなどをAssertしてはいけない。バグを捕まえるためにAssertせよ。</li>
+</ol>
+<ol start="6" style="list-style-type: decimal">
+<li>パフォーマンス</li>
+</ol>
+<ol start="71" style="list-style-type: decimal">
+<li>まず計測 パフォーマンス改善はまず計測から始めよ。当てずっぽうではだめ。</li>
+<li>New .NETでは、Newは時間が掛かる。ヘビーなループの中でNewが呼ばれる場合、必要ならば出力引数を用いる。 Function GetX() As X Return New X(Me.value) End Function が遅い場合、呼び出し側にNewを任せ、 Sub GetX(ByVal x As X) x.Value = Me.value End Sub とせよ。 Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 27</li>
+<li>変数へのNothingの代入 使われない変数が大量に発生する場合、積極的にNothingを代入せよ。特に、配列の要素(パフォーマンス要求が厳しい場合)。 理由：ガベージコレクションを助ける。</li>
+</ol>
+<ol start="7" style="list-style-type: decimal">
+<li>その他</li>
+</ol>
+<ol start="74" style="list-style-type: decimal">
+<li>自分で新しく作る前に相談 他人が作成したクラスに対するある操作が新たに必要となるとき、自分でそのクラスをInheritsして新たなクラスを作成したり、そのクラスをインスタンス変数として持つクラスを作成するより、まずそのクラスの作成者に相談すること。汎用的な形でその要望を満たしてくれれば、全体をコンパクトにできる。</li>
+<li>複雑な設計は悪 設計で迷った場合、多くのケースは ‘Simplicity’ を重視した方がよい。また、後のメンテナビリティにも ‘Simplicity’ は重要である。</li>
+<li>パフォーマンス調整は測定後 最初からパフォーマンスを気にしたコーディングをするべきではない。読みやすさ、保守のしやすさを優先する。パフォーマンスは測定してから改善する。</li>
+<li>トリッキーなコードは悪 .NETの平均プログラマに分かるようなコードを書く。演算子の順序、初期化に関する規則など、誰もが必ずしも自信をもって答えられないような仮定を持ち込まず、() を使って演 Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 28 算順序を明確にしたり、明示的な初期化を行った方が読みやすい。 悪い例: Return CBool(IIf(cond = 0, a &lt; b And b &lt; c, d = 1)) 良い例: Return CBool(IIf((cond = 0), (a &lt; b) And (b &lt; c), (d = 1))) 悪い例： ' 単位行列を作るが、時間もかかるし誰も読めない。 For i = 1 To i &lt;= n For j = 1 To j &lt;= n m(i - 1, j - 1) = (i / j) * (j / i) Next Next</li>
+<li>100%正しいことはない ここに書かれていることに、100% 準拠する必要はない。迷ったら考えを整理し、相談すること。十分な理由があってルールから外れることはよくある。コミュニケーションができるチームの助けとなることが、このコーディング標準の目的である。</li>
+</ol>
+<ol start="8" style="list-style-type: decimal">
+<li>謝辞 このコーディング標準をオリジナル版からVB.NET版に変更するにあたって、平尾繁樹さん、小井土亨さん、穴見隆典さん、あまぴょんさん、よねＫＥＮさん、金野清隆さんから貴重なご意見を頂きました。ありがとうございました。また、オリジナルからの変更を快く了承して頂いた、平鍋健児さんに感謝致します。</li>
+<li>参考資料 Kenji Hiranabe, Javaコーディング標準(オリジナル) http://objectclub.esm.co.jp/eXtremeProgramming/CodingStd.doc Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 29 Copyright (c) 2000,2001 Eiwa System Management, Inc. Object Club Kenji Hiranabe 02/10/08 Copyright (c) 2002 Taiyo System Corporation. Tsunefumi Nakanishi 02/10/08 30 Writing Robust Java Code高橋さんによる日本語訳版 http://www.alles.or.jp/~torutk/oojava/codingStandard/writingrobustjavacode.html Writing Robust Java Code オリジナル(英語) http://www.ambysoft.com/javaCodingStandards.html プログラミング Microsoft .NET Framework Jeffrey Richter 著 吉松 史彰 監訳 日経BPソフトプレス ISBN4-89100-303-0 Yoshihiro Kawabata, C# コーディング標準 http://www.kawabata.com/dotnet/CodingStdCS.pdf クラス ライブラリ開発者向けのデザイン ガイドライン http://www.microsoft.com/japan/msdn/library/default.asp?url=/japan/msdn/library/ja/cpgenref/html/cpconnamingguidelines.asp SharpDevelop C# Coding Style Guide http://www.icsharpcode.net/TechNotes/SharpDevelopCodingStyle.pdf 以上</li>
+</ol>
+</body>
+</html>
